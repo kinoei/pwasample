@@ -3,7 +3,7 @@ var urlsToCache = [
     ".",
     "index.html",
     "camera.html",
-    "file_test.html"
+    "file_read.html"
 ];
 
 // インストール処理
