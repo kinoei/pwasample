@@ -1,6 +1,8 @@
 var CACHE_NAME = 'pwa-sample-caches';
 var urlsToCache = [
-    '', // TODO:gitURLを指定
+    ".",
+    "index.html",
+    "camera.html"
 ];
 
 // インストール処理
@@ -9,7 +11,7 @@ self.addEventListener(`install`, function(event){
         caches
         .open(CACHE_NAME)
         .then(function(cache){
-            return chache.addAll(urlsToCache);
+            return cache.addAll(urlsToCache);
         })
     );
 });
@@ -22,6 +24,5 @@ self.addEventListener('fetch', function(event){
         .then(function(response){
             return response ? response : fetch(event.request);
         })
-        
     );
 });
