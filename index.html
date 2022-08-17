@@ -19,7 +19,7 @@
             <a href="file_read.html">ファイルのテキスト</a>
         </div>
         <script>
-            // サービスワーカー
+            // サービスワーカー（この記述あるページでインストール処理ができる）
             if('serviceWorker' in navigator){
                 navigator.serviceWorker.register('service_worker.js').then(function(registration){
                     console.log('ServiceWorker registration successful with scope:', registration.scope);
