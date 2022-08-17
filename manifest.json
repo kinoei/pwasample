@@ -3,7 +3,6 @@
     "name" : "PWA sample app",
     "display" : "standalone",
     "start_url" : "index.html",
-    "scope": "/",
     "icons" : [
         {
             "src" : "icon.png",
