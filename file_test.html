@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="manifest" href="/manifest.json">
+        <title>表示</title>
+    </head>
+    <body>
+        <div>
+            <button onclick="openFile();">ファイルを開く(Safari非対応)</button>
+            <p></p>
+            <input type="file" id="file-input" accept="text/plain">
+            <p></p>
+            読み込んだテキストファイル<br>
+            <textarea id="textarea" rows="10" cols="120"></textarea>
+            <br>
+            <a href="index.html">戻る</a>
+        </div>
+        <script>
+            //
+            if('serviceWorker' in navigator){
+                navigator.serviceWorker.register('/service_worker.js').then(function(registration){
+                    console.log('ServiceWorker registration successful with scope:', registration.scope);
+                }).catch(function(err){
+                    console.log('ServiceWorker registration failed', err);
+                });
+            }
+            if('launchQueue' in window){
+                console.log("File Handling API はサポートされています。");
+                launchQueue.setConsumer(launchParams => {
+                    handleFiles(launchParams.files);
+                });
+            }else{
+                console.log("File Handling API はサポートされていません。");
+            }
+
+            // テキストファイルを開く(safariでは非対応の方法)
+            const pickerOpts = {
+                types: [
+                    {
+                        description: 'テキストファイル',
+                        accept: {
+                            // OSが'text/plain'と判断する拡張子が対象（以下はtxtだけ指定しているが、MacOSではあまり意味はなくcsvやshなども対象に入る）
+                            'text/plain': ['.txt']
+                        }
+                    },
+                ],
+                excludeAcceptAllOption: true,
+                multiple: false
+            };
+            async function openFile(){
+                console.log("openfile");
+                let fileHandle;
+                [fileHandle] = await window.showOpenFilePicker(pickerOpts);
+                console.log(fileHandle);
+                const file = await fileHandle.getFile();
+                const contents = await file.text();
+                document.getElementById('textarea').value = contents;
+            }
+
+            const file_input = document.getElementById('file-input');
+            file_input.addEventListener('change', async () => {
+                const reader = new FileReader();
+                reader.readAsText(file_input.files[0], 'UTF-8');
+                reader.onload = (event) => {
+                    console.log(event.target.result);
+                    document.getElementById('textarea').value = event.target.result;
+                };
+            });
+        </script>
+    </body>
+</html>
