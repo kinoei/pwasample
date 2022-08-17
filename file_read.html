@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>ファイルのテスト</title>
+    </head>
+    <body>
+        <div>
+            <input type="file" id="file-input" accept="text/plain">
+            <p></p>
+            読み込んだテキストファイル<br>
+            <textarea id="textarea" rows="10" cols="120"></textarea>
+            <br>
+            <a href="index.html">戻る</a>
+        </div>
+        <script>
+            const file_input = document.getElementById('file-input');
+            file_input.addEventListener('change', async () => {
+                const reader = new FileReader();
+                reader.readAsText(file_input.files[0], 'UTF-8');
+                reader.onload = (event) => {
+                    console.log(event.target.result);
+                    document.getElementById('textarea').value = event.target.result;
+                };
+            });
+        </script>
+    </body>
+</html>

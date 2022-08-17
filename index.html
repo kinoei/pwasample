@@ -27,14 +27,6 @@
                     console.log('ServiceWorker registration failed', err);
                 });
             }
-            if('launchQueue' in window){
-                console.log("File Handling API はサポートされています。");
-                launchQueue.setConsumer(launchParams => {
-                    handleFiles(launchParams.files);
-                });
-            }else{
-                console.log("File Handling API はサポートされていません。");
-            }
         </script>
     </body>
 </html>
