@@ -2,7 +2,8 @@ var CACHE_NAME = 'pwa-sample-caches';
 var urlsToCache = [
     ".",
     "index.html",
-    "camera.html"
+    "camera.html",
+    "file_test.html"
 ];
 
 // インストール処理
