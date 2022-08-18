@@ -3,6 +3,7 @@ var urlsToCache = [
     ".",
     "index.html",
     "file_read.html",
+    "noti.html",
     "camera.html",
     "js/camera.js"
 ];
@@ -27,4 +28,8 @@ self.addEventListener('fetch', function(event){
             return response ? response : fetch(event.request);
         })
     );
+});
+
+self.addEventListener('message', (event) => {
+    self.registration.showNotification(event.data);
 });
